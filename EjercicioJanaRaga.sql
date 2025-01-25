@@ -207,7 +207,23 @@ GROUP BY a.actor_id
 HAVING Peliculas > 5
 ORDER BY Peliculas DESC;
 
--- 22. Encuentra el título de todas las películas que fueron alquiladas durante más de 5 días. Utiliza una subconsulta para encontrar los rental_ids con una duración superior a 5 días y luego selecciona las películas correspondientes. Pista: Usamos DATEDIFF para calcular la diferencia entre una fecha y otra, ej: DATEDIFF(fecha_inicial, fecha_final)
+-- 22. Encuentra el título de todas las películas que fueron alquiladas durante más de 5 días. Utiliza una subconsulta para
+-- encontrar los rental_ids con una duración superior a 5 días y luego selecciona las películas correspondientes.
+-- Pista: Usamos DATEDIFF para calcular la diferencia entre una fecha y otra, ej: DATEDIFF(fecha_inicial, fecha_final)
+
+SELECT f.title AS Titulo,
+COUNT(*) AS Numero_veces_alquilada
+FROM film f
+INNER JOIN inventory i
+ON f.film_id = i.film_id
+INNER JOIN rental r
+ON r.inventory_id = i.inventory_id
+WHERE r.rental_id IN (SELECT rental_id
+	FROM rental
+	WHERE DATEDIFF(return_date, rental_date) > 5)
+GROUP BY f.title
+ORDER BY Numero_veces_alquilada DESC;
+
 -- 23. Encuentra el nombre y apellido de los actores que no han actuado en ninguna película de la categoría "Horror". Utiliza una subconsulta para encontrar los actores que han actuado en películas de la categoría "Horror" y luego exclúyelos de la lista de actores.
 -- BONUS
 -- 24. BONUS: Encuentra el título de las películas que son comedias y tienen una duración mayor a 180 minutos en la tabla film con subconsultas.
