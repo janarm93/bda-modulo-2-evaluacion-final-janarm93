@@ -1,4 +1,4 @@
-## Ejercicio técnico del Módulo 2 de Jana Raga
+## Ejercicio técnico SQL del módulo 2 - Jana Raga
 
 Este repositorio incluye un documento SQL con la resolución de los ejercicios técnicos del módulo. En él se encuentran resueltos los ejercicios 1 a 23 (obligatorios), así como el ejercicio 24 (bonus).
 
